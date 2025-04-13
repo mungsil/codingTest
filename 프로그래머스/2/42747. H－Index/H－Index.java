@@ -11,13 +11,7 @@ class Solution {
         
         int h_index = 0;
         for(int i=0;i<inputs.length;i++){
-            
-            if(inputs[i] > inputs.length){
-                h_index++;
-                continue;
-            } 
-        
-            if((h_index + 1)>inputs[i]){ 
+            if((i + 1)>inputs[i]){ 
                 break;
             } 
             
