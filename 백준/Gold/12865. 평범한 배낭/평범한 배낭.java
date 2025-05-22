@@ -11,37 +11,32 @@ public class Main{
         Scanner scan = new Scanner(System.in);
         maxNumInBag = scan.nextInt();
         maxWeightInBag = scan.nextInt();
-        dp = new int[maxNumInBag][1000000];
-        for (int i = 0; i < maxNumInBag; i++) {
-            Arrays.fill(dp[i], -1);
-        }
+        dp = new int[maxNumInBag+1][maxWeightInBag+1];
         
-        candidates = new int[maxNumInBag][2]; 
+        candidates = new int[maxNumInBag+1][2]; 
               
-        for(int i=0; i<maxNumInBag; i++){
+        for(int i=1; i < maxNumInBag+1; i++){
             candidates[i][0] = scan.nextInt(); // 무게
             candidates[i][1] = scan.nextInt(); // 가치
         }
         
-        System.out.print(recur(0, 0));
+        getMaxValue();
+        System.out.print(dp[maxNumInBag][maxWeightInBag]);
     } 
     
-    private static int recur(int idx, int weight){
-        if(weight > maxWeightInBag){
-            return Integer.MIN_VALUE;
+    private static void getMaxValue(){
+        for(int y=1; y < maxNumInBag+1; y++){
+            int weight = candidates[y][0];
+            int value = candidates[y][1];
+            
+            for(int x=1; x < maxWeightInBag+1; x++){
+                if(x < weight){
+                    dp[y][x] = dp[y-1][x];
+                }else{
+                    dp[y][x] = Math.max(dp[y-1][x-weight] + value, dp[y-1][x]);
+                }
+            }
         }
-        if(idx == maxNumInBag){
-            return 0;
-        }
-        if(dp[idx][weight] > -1){
-            return dp[idx][weight];
-        }
-        
-        dp[idx][weight] = Math.max(
-            recur(idx +1, weight + candidates[idx][0]) + candidates[idx][1]
-            , recur(idx +1, weight) );
-        
-        return dp[idx][weight];
     }
     
 }
