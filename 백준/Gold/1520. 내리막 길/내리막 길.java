@@ -14,7 +14,6 @@ public class Main{
     private static int n; // 가로
     private static int[][] map;
     private static int[][] dp;
-    private static int[][] visited;
     private static int[][] upDownLeftRight = {{0,1}, {0,-1}, {1,0}, {-1,0}};
     
     public static void main(String[] args){
@@ -25,11 +24,11 @@ public class Main{
         n = scan.nextInt();
         map = new int[m][n];
         dp = new int[m][n];
-        visited = new int[m][n];
         
         for(int y=0; y<m; y++){
             for(int x=0; x<n; x++){
                 map[y][x] = scan.nextInt();
+                dp[y][x] =-1;
             }
         }
         
@@ -43,16 +42,12 @@ public class Main{
             return 1;
         }
         
-        if(dp[y][x] != 0){
-            return dp[y][x];
-        }
-        
-        if(visited[y][x] != 0){
+        if(dp[y][x] != -1){
             return dp[y][x];
         }
         
         // 방문했어도 0인 경우
-        
+        int route = 0;
         for(int[] nextChange: upDownLeftRight){
             int nextX = nextChange[0] + x;
             int nextY = nextChange[1] + y;
@@ -61,12 +56,12 @@ public class Main{
             if(nextX >= 0 && nextX < n && nextY >= 0 && nextY < m){
                 // 내리막길
                 if(map[y][x] > map[nextY][nextX]){
-                    dp[y][x] += recur(nextY, nextX);
-                    visited[y][x] =1;
+                    route += recur(nextY, nextX);
                 }
             }
         }
         
+        dp[y][x] = route;
         return dp[y][x];
     }
      
