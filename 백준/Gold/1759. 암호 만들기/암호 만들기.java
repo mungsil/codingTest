@@ -56,9 +56,9 @@ public class Main {
         }
         
         for(int i=startIndex; i<letters.length; i++){
-            List<Character> logs = new ArrayList<>(keyLogs);
-            logs.add(letters[i]);
-            visit(i+1, logs);
+            keyLogs.add(letters[i]);
+            visit(i+1, keyLogs);
+            keyLogs.remove(keyLogs.size() - 1);
         }
     }
 }
