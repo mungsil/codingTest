@@ -11,13 +11,10 @@ public class Main{
         N = scan.nextInt();
         visited = new int[N+1];
         visitNums = new int[N+1];
-        recur(0, 0);   
+        recur(0);   
     }
     
-    private static void recur(int step, int visit){
-        visited[visit] = 1;
-        visitNums[step] = visit;
-
+    private static void recur(int step){
         if(step == N){
             StringBuilder sb = new StringBuilder();
             for(int n: visitNums){
@@ -26,17 +23,17 @@ public class Main{
                 sb.append(" ");
             }
             System.out.println(sb);
-            visitNums[step] = 0;
-            visited[visit] = 0;
             return;
         }
         
         for(int i=1; i<=N; i++){
             if(visited[i] == 0){
-                recur(step+1, i);
+                visited[i] = 1;
+                visitNums[step] = i;
+                recur(step+1);
+                visited[i] = 0;
             }           
         }
-        visited[visit] = 0;
     }
     
 }
