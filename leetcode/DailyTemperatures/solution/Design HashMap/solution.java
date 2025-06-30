@@ -1,3 +1,12 @@
+/*
+Runtime: 55ms
+Beats: 10.97%
+
+Memory: 49.00MB
+Beats: 66.34%
+*/
+
+
 class MyHashMap {
 
     List<List<int[]>> hashMap;
