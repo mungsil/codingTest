@@ -9,29 +9,20 @@ public class Main{
         Scanner sc = new Scanner(System.in);
         String firstWord = sc.next();
         String secondWord = sc.next();
-        char[] firstChars = firstWord.toCharArray();
-        char[] secondChars = secondWord.toCharArray();
         
-        Map<Character, Integer> firstCharCount = new HashMap<>(); 
-        Map<Character, Integer> secondCharCount = new HashMap<>(); 
-        for(char c: firstChars){
-            firstCharCount.merge(c, 1, (oldValue, newValue) -> oldValue+newValue);
+        Map<Character, Integer> charCount = new HashMap<>();
+        
+        for (char c : firstWord.toCharArray()) {
+            charCount.merge(c, 1, Integer::sum);
         }
-        for(char c: secondChars){
-            secondCharCount.merge(c, 1, (oldValue, newValue) -> oldValue+newValue);
+        for (char c : secondWord.toCharArray()) {
+            charCount.merge(c, -1, Integer::sum); 
         }
         
-        // 통합
-        for(char key: firstCharCount.keySet()){
-            int count = firstCharCount.get(key);
-            secondCharCount.merge(key, count, (oldValue, newValue) -> oldValue-newValue);
-        }
-        
-        var counts = secondCharCount.values();
         int answer = 0;
-        for(int count : counts){
+        for (int count : charCount.values()) {
             answer += Math.abs(count);
-        };
+        }
         System.out.print(answer);
     }
     
