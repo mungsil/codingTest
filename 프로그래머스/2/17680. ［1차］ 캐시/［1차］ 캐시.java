@@ -2,41 +2,31 @@ import java.util.*;
 
 class Solution {
     public int solution(int cacheSize, String[] cities) {
-        Queue<String> queue = new ArrayDeque<>();
-
+        Set<String> cache = new LinkedHashSet<>();
+        
         int answer = 0;
         for(String city: cities){
             city = city.toLowerCase();
-            
-            // 찾는 도시가 큐에 존재하는 경우의 처리 수행
-            int updateFlag = 0;
-            Iterator<String> visitor = queue.iterator();
-            while(visitor.hasNext()){
-                String s = visitor.next();
-                if(s.equals(city)){
+            if(cache.contains(city)){
+                cache.remove(city);
+                cache.add(city);
+                answer += 1;
+            } else{
+                if(cacheSize ==0){
+                    answer += 5;
+                    continue;
+                }
+                
+                if(cache.size() >= cacheSize){
+                    Iterator visitor = cache.iterator();
+                    visitor.next();
                     visitor.remove();
-                    queue.offer(city); 
-                    answer += 1; // cache hit
-                    updateFlag = 1;
-                    break;
-                } 
+                }
+                cache.add(city);
+                answer += 5;
             }
-            
-            if(updateFlag == 1){
-                continue;
-            }
-        
-           if(queue.size() >= cacheSize){
-               queue.poll();               
-           }
-            
-            if(cacheSize != 0){
-                queue.offer(city);
-            }
-            
-            answer += 5; 
         }
-        
+    
         return answer;
     }
 }
