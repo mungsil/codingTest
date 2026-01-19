@@ -1,0 +1,5 @@
+SELECT ANIMAL_TYPE, count(*) as count
+FROM ANIMAL_INS
+GROUP BY ANIMAL_TYPE
+HAVING ANIMAL_TYPE = 'Cat' or ANIMAL_TYPE = 'Dog'
+order by animal_type
