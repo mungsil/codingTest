@@ -6,29 +6,21 @@ public class Main {
         String word = scan.nextLine();
         int answer = 0;
         int idx = 0;
-        
-        //System.out.println("word: " + word);
+
         while(true){
             if(idx >= word.length()){
                 break;
             }
             char c = word.charAt(idx);
-            //System.out.println("주어진 단어의 문자 c 검사, c = " + c);
             List<String> croaCandidates = getCroaByFirshChar(c);
             if(croaCandidates == null){
-                //System.out.println("크로아 알파벳 후보 없음: " + c);
                 idx++;
                 answer++;
-                //System.out.println("다음 인덱스: " + idx);
                 continue;
             }
-            // then 
-            // -> get the croa alpha
-            // -> compare both word is matching
             
             boolean found = false;
             for(String croa : croaCandidates){
-                // croa 문자와 일치하는 알파벳이 있는지 확인
                 boolean isSame = true;
                 for(int i=1; i<croa.length(); i++){
                     if(word.length() <= i+idx){ 
