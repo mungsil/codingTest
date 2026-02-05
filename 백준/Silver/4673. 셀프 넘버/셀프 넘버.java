@@ -1,11 +1,8 @@
-
 public class Main {
     public static void main(String[] args) {
         int[] dn = new int[10001];
         int num=1;
-        // dn값 구하기
-        // arr[val] = num(creator)
-        // val > 10000 라면 검사를 안해도 된다
+
         while(true){
             int target = num;
             int sum=target;
@@ -29,8 +26,8 @@ public class Main {
                 else if(target > 0){
                     n=1;                   
                 }
-                sum += (target/n); // 
-                target = target%n; // 1002 % 1000
+                sum += (target/n);  
+                target = target%n;
                 if(target == 0){
                     break;
                 }
