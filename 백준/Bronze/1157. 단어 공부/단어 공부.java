@@ -3,35 +3,26 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        String input = scan.next();
-        int len = input.length();
-
-        if (len == 1) {
-            System.out.println(input.toUpperCase());
-            return;
-        }
-
-        Map<String, Integer> count = new HashMap<>();
-
-        for (char c : input.toCharArray()) {
-            String s = String.valueOf(c).toUpperCase();
-            count.merge(s, 1, Integer::sum);
-        }
-
-        PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(
-            (o1, o2) -> Integer.compare(o2.getValue(), o1.getValue())
-        );
-
-        for (Map.Entry<String, Integer> node : count.entrySet()) {
-            pq.add(node);
-        }
-
-        Map.Entry<String, Integer> first = pq.poll(); // 가장 빈도가 높은 노드
+        String input = scan.next().toUpperCase();
         
-        if (!pq.isEmpty() && Objects.equals(first.getValue(), pq.peek().getValue())) {
-            System.out.println("?");
-        } else {
-            System.out.println(first.getKey());
+        int alphaNum = 'Z'-'A'+1;
+        int[] alpha = new int[alphaNum];
+        for (int i = 0; i < input.length(); i++) {
+            int idx = input.charAt(i)-'A';
+            alpha[idx]++;
         }
+        
+        int maxCount = -1;
+        char result = '?';
+        for(int i=0; i<alphaNum; i++){
+            if(alpha[i] > maxCount){
+                maxCount = alpha[i];
+                result = (char)(i + 'A');
+            } else if (alpha[i] == maxCount){
+                result = '?';
+            }
+        }
+        
+        System.out.println(result);
     }
 }
