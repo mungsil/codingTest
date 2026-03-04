@@ -1,0 +1,8 @@
+-- find root item from item_tree 
+-- get a item name
+
+select INFO.ITEM_ID, ITEM_NAME
+FROM ITEM_INFO AS INFO
+INNER JOIN ITEM_TREE AS TREE
+ON TREE.ITEM_ID = INFO.ITEM_ID
+WHERE PARENT_ITEM_ID IS NULL
